@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         testIsConvex();
+        testSpeed();
     }
 
     private static double CrossProduct(Point A, Point B, Point C) {
@@ -117,19 +118,58 @@ public class Main {
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(0, 0));
         points.add(new Point(0, 1));
-        points.add(new Point(1, 1));
+        points.add(new Point(0, 0));
         points.add(new Point(1, 0));
 
 
-        System.out.println("Square : " + isConvex(square));
-        System.out.println("Hexagon  " + isConvex(hexagon));
-        System.out.println("Triangle " + isConvex(triangle));
-        System.out.println("Square wit a point in da middle " + isConvex(square2));
-        System.out.println("Pentagon: " + isConvex(pentagon));
-        System.out.println("Concave Shape " + isConvex(pentagon));
+        System.out.println("Square : " + isConvex(square) + " should be true");
+        System.out.println("Hexagon  " + isConvex(hexagon) + " should be true");
+        System.out.println("Triangle " + isConvex(triangle)+ " should be true");
+        System.out.println("Square wit a point in da middle " + isConvex(square2)+ " should be false");
+        System.out.println("Pentagon: " + isConvex(pentagon)+ " should be false");
+        System.out.println("Concave Shape " + isConvex(pentagon)+ " should be false");
 
     }
 
+
+    private static void testSpeed(){
+        ArrayList<Point> points = generatePolygonPointsRandom(100000);
+        ArrayList<ArrayList<Point>> points2 = new ArrayList<>();
+        for(long i = 1; i <= 100000000L; i*=10) {
+            points2.add(generateNGon(i));
+        }
+        long start = System.currentTimeMillis();
+        isConvex(points);
+        long end = System.currentTimeMillis();
+        System.out.println("Time: " + (end - start) + "ms");
+        for (ArrayList<Point> pointArrayList : points2) {
+            start = System.currentTimeMillis();
+            isConvex(pointArrayList);
+            end = System.currentTimeMillis();
+            System.out.println("Size:" + pointArrayList.size() + "\nTime: " + (end - start) + "ms\n");
+        }
+    }
+
+    public static ArrayList<Point> generatePolygonPointsRandom(int numberOfPoints) {
+        ArrayList<Point> points = new ArrayList<>();
+        for (int i = 0; i < numberOfPoints; i++) {
+            int x = (int) (Math.random() * 100);
+            int y = (int) (Math.random() * 100);
+            points.add(new Point(x, y));
+        }
+        return points;
+    }
+
+    public static ArrayList<Point> generateNGon(long n) {
+        int radius = 1000;
+        ArrayList<Point> points = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            double x = radius * Math.cos(2 * Math.PI * i / n);
+            double y = radius * Math.sin(2 * Math.PI * i / n);
+            points.add(new Point(x, y));
+        }
+        return points;
+    }
 
 //    private static double calculateAngle(Point p1, Point p2, Point p3) {
 //        Vector vector1 = new Vector(p2.x-p1.x,p2.y-p1.y);
