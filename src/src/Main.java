@@ -18,6 +18,14 @@ public class Main {
     }
 
 
+
+
+    /**
+     * Checks if shape is convex
+     * Implementation based off this geeks for geeks article: https://www.geeksforgeeks.org/check-if-given-polygon-is-a-convex-polygon-or-not/#
+     * @param points List of points that make up the polygon
+     * @return true if the polygon is convex, false otherwise
+     */
     static boolean isConvex(ArrayList<Point> points) {
         int N = points.size();
         double prev = 0;
@@ -41,33 +49,6 @@ public class Main {
         }
         return true;
     }
-
-
-//        public static boolean isConvex(ArrayList<Point> points) {
-//            boolean angle1 = false;
-//            boolean angle2 = false;
-//            for (int i = 0; i < points.size(); i++) {
-//                int next = i + 1 < points.size() ? i + 1 : 0;
-//                int prev = i - 1 >= 0 ? i - 1 : points.size() - 1;
-//                double result = calculateAngle(points.get(prev), points.get(i), points.get(next));
-//                if (!angle1 && result > 180) {
-//                    angle1 = true;
-//                }
-//                if (!angle2 && Math.abs(result - 360) > 180) {
-//                    angle2 = true;
-//                }
-//                if (angle1 && angle2) {
-//                    i = Integer.MAX_VALUE;
-//                }
-//            }
-//            if (angle1 && angle2) {
-//                return true;
-//            } else {
-//                return false;
-//
-//            }
-//        }
-
 
     private static void testIsConvex() {
         ArrayList<Point> square = new ArrayList<>();
@@ -138,15 +119,15 @@ public class Main {
         for(long i = 1; i <= 100000000L; i*=10) {
             points2.add(generateNGon(i));
         }
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         isConvex(points);
-        long end = System.currentTimeMillis();
-        System.out.println("Time: " + (end - start) + "ms");
+        long end = System.nanoTime();
+        System.out.println("Time: " + (end - start) + "ns");
         for (ArrayList<Point> pointArrayList : points2) {
-            start = System.currentTimeMillis();
+            start = System.nanoTime();
             isConvex(pointArrayList);
-            end = System.currentTimeMillis();
-            System.out.println("Size:" + pointArrayList.size() + "\nTime: " + (end - start) + "ms\n");
+            end = System.nanoTime();
+            System.out.println("Size:" + pointArrayList.size() + "\nTime: " + (end - start) + "ns\n");
         }
     }
 
@@ -170,13 +151,6 @@ public class Main {
         }
         return points;
     }
-
-//    private static double calculateAngle(Point p1, Point p2, Point p3) {
-//        Vector vector1 = new Vector(p2.x-p1.x,p2.y-p1.y);
-//        Vector vector2 = new Vector(p2.x-p3.x,p2.y-p3.y);
-//
-//        return Math.toDegrees(Math.acos(vector1.dotProduct(vector2)/(vector1.length()*vector2.length())));
-//    }
 }
 
 
