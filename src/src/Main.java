@@ -3,6 +3,16 @@ import java.util.ArrayList;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+
+    private static double CrossProduct(Point A, Point B, Point C) {
+        double X1 = (B.x - A.x);
+        double Y1 = (B.y - A.y);
+        double X2 = (C.x - A.x);
+        double Y2 = (C.y - A.y);
+        return (X1 * Y2 - Y1 * X2);
+    }
+
+
     /**
      * Checks if shape is convex
      * Implementation based off this geeks for geeks article: https://www.geeksforgeeks.org/check-if-given-polygon-is-a-convex-polygon-or-not/#
@@ -19,7 +29,6 @@ public class Main {
             Point A = points.get(i);
             Point B = points.get((i + 1) % N);
             Point C = points.get((i + 2) % N);
-
             curr = CrossProduct(A, B, C);
 
             if (curr != 0) {
