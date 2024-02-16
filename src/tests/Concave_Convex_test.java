@@ -37,9 +37,17 @@ public class Concave_Convex_test {
                 //triangle
                 {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(4, 0), new Point(2, 4))), true},
                 //square2
-                {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(0, 3), new Point(3, 3), new Point(3, 0), new Point(1, 1), new Point(2, 2), new Point(1, 2))), false},
+                {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(0, 3), new Point(3, 3), new Point(3, 0), new Point(1, 1))), false},
                 //concave shape
                 {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(2, 0), new Point(3, Math.sqrt(3)), new Point(2, 2 * Math.sqrt(3)), new Point(0, 2 * Math.sqrt(3)),new Point(1,1))), false},
+                //concave shape with multiple concavity
+                {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(10, 0), new Point(3,2), new Point(3,7), new Point(10, 10),new Point(0,10))), false},
+                //concave shape with multiple concavity 2
+                {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(10, 0), new Point(3,2),new Point(10,5), new Point(3,7), new Point(10, 10),new Point(0,10),new Point(5,5))), false},
+                //concave shape with barely a concavity
+                {new ArrayList<>(Arrays.asList(new Point(0, 0), new Point(0, 3),new Point(2.99999,1.5), new Point(3, 3), new Point(3, 0))), false},
+                //Shape with 1000 Points
+                {generateNGon(1000L), true},
         };
     }
 
